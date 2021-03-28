@@ -3,17 +3,17 @@ A python program to scrape some websites for pharma/synchrotron research softwar
 
 ### Sites
 At present, sites scraped are:
-Oxford University - All grade 8 jobs
-lightsources.org - The last 60 jobs posted
-The Rosalind Franklin Institute - All jobs
-Merck - All jobs that contain the tag "python"
-MSD - All jobs that contain the tag "python"
-NovoNordisk - All jobs that contain the tag "python"
+- Oxford University - All grade 8 jobs
+- lightsources.org - The last 60 jobs posted
+- The Rosalind Franklin Institute - All jobs
+- Merck - All jobs that contain the tag "python"
+- MSD - All jobs that contain the tag "python"
+- NovoNordisk - All jobs that contain the tag "python"
 
 ### Requirements
 A python environment with:
-BeautifulSoup
-Selenium
+- BeautifulSoup
+- Selenium
 
 ### Useage
 If you want to send an email enter your from/to address and password in the appropriate place in jobscraper.py.
