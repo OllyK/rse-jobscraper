@@ -15,6 +15,8 @@ A python environment with:
 - BeautifulSoup
 - Selenium
 
+You will also need to download and install the [Chrome Webdriver](https://chromedriver.chromium.org/downloads) to use with Selenium.  Once downloaded, change the path in `utils.py`.
+
 ### Useage
 If you want to send an email enter your from/to address and password in the appropriate place in jobscraper.py.
 
