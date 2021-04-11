@@ -9,6 +9,10 @@ At present, sites scraped are:
 - Merck - All jobs that contain the tag "python"
 - MSD - All jobs that contain the tag "python"
 - NovoNordisk - All jobs that contain the tag "python"
+- Society of Research Software Engineering website - All jobs
+- Exscientia - All jobs
+- Novartis - Jobs with the tag "python" in the following countries: AU,AT,BB,BE,BA,BR,CA,HR,CZ,DK,EE,FI,FR,GE,DE,GR,HU,IE,IT,LV,LT,LU,MK,MD,NZ,NO,PL,PT,RS,SG,SK,SI,ES,SE,CH,GB.
+- EMBL-EBI - All jobs
 
 ### Requirements
 A python environment with:

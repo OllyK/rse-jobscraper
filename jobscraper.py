@@ -11,6 +11,10 @@ from msd_job_finder import MSDJobFinder
 from novo_nordisk_job_finder import NovoNordiskJobFinder
 from ox_uni_job_finder import OxUniJobFinder
 from rosalind_job_finder import RosalindJobFinder
+from soc_rse_job_finder import SocRSEJobFinder
+from exscientia_job_finder import ExscientiaJobFinder
+from novartis_job_finder import NovartisJobFinder
+from ebi_job_finder import EbiJobFinder
 
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
@@ -29,8 +33,13 @@ msd = MSDJobFinder(driver)
 lights = LightsourceJobFinder(driver)
 merck = MerckJobFinder(driver)
 novo_nord = NovoNordiskJobFinder(driver)
+soc_rse = SocRSEJobFinder(driver)
+exsci = ExscientiaJobFinder(driver)
+novartis = NovartisJobFinder(driver)
+ebi = EbiJobFinder(driver)
 
-job_finders = [ox_uni, ros_frank, msd, lights, merck, novo_nord]
+job_finders = [ox_uni, ros_frank, msd, lights, merck, novo_nord, soc_rse,
+               exsci, novartis, ebi]
 message = f"""\
 Subject: Bumper job search results for {date.today()}.
 
