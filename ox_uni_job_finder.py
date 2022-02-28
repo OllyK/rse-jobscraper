@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import re
 from urllib.request import urlopen
 
 class OxUniJobFinder:
@@ -16,26 +17,29 @@ class OxUniJobFinder:
             mydivs = soup.find_all("td", {"class": "erq_searchv4_result_row"})
             for div in mydivs:
                 job_divs.append(div)
-        self.jobs = [x for x in job_divs if "Grade 8" in x.find("td", class_="erq_searchv4_heading3").text.strip()]
-        print(f"{len(self.jobs)} Ox Uni jobs found.")
-        return self.create_output_string(self.jobs)
+        return self.create_output_string(job_divs)
 
     def create_output_string(self, jobs_list):
         output_string = "Oxford University Jobs\n"
-        for count, job in enumerate(jobs_list, start=1):
-            try:
-                job_title = job.find("td", class_="erq_searchv4_heading4").text.strip()
-                dept = job.find("td", class_="erq_searchv4_heading2").text.strip()
-                vacancy_id, closing_date = [x.text.strip() for x in job.find_all("td", class_="erq_searchv4_heading5_text")]
-                vacancy_url = self.base_job_url + vacancy_id
-            except AttributeError as e:
-                dept = None
-                vacancy_id, closing_date = [x.text.strip() for x in job.find_all("td", class_="erq_searchv4_heading5_text")]
-                vacancy_url = self.base_job_url + vacancy_id
-            output_string += (f"{count}: {job_title}\n")
-            output_string += (f"{dept}\n")
-            output_string += (f"Closing date: {closing_date}\n")
-            output_string += (f"{vacancy_url}\n\n")
+        id_pattern = re.compile(r"(?<!\d)\d{6}(?!\d)")
+        job_counter = 0
+        for job in jobs_list:
+            tds = [x.text.strip().lower() for x in job.find_all("td", class_="erq_searchv4_heading5_text")]
+            if "standard grade 8" in tds:
+                job_counter += 1
+                try:
+                    job_title = job.find("td", class_="erq_searchv4_heading4").text.strip()
+                    dept = job.find("td", class_="erq_searchv4_heading2").text.strip()
+                    vacancy_id = list(filter(id_pattern.match, tds))[0]
+                    vacancy_url = self.base_job_url + vacancy_id
+                except AttributeError as e:
+                    dept = None
+                    vacancy_id = list(filter(id_pattern.match, tds))[0]
+                    vacancy_url = self.base_job_url + vacancy_id
+                output_string += (f"{job_counter}: {job_title}\n")
+                output_string += (f"{dept}\n")
+                output_string += (f"{vacancy_url}\n\n")
+        print(f"{job_counter} Ox Uni jobs found.")
         return output_string
 
 # ox_job = OxUniJobFinder()
