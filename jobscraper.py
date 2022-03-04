@@ -47,7 +47,10 @@ This message is sent from Python.\n\n"""
 
 with open(OUT_FILE, 'w', encoding='utf-8') as f:
     for job_finder in job_finders:
-        text = job_finder.find_jobs() + "\n"
+        try:
+            text = job_finder.find_jobs() + "\n"
+        except:
+            continue
         f.write(text)
         message += text
 print(f"Jobs writtten out to {OUT_FILE}")
