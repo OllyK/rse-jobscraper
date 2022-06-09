@@ -15,6 +15,7 @@ from soc_rse_job_finder import SocRSEJobFinder
 from exscientia_job_finder import ExscientiaJobFinder
 from novartis_job_finder import NovartisJobFinder
 from ebi_job_finder import EbiJobFinder
+from exeter_uni import ExeterJobFinder
 
 port = 465  # For SSL
 smtp_server = "smtp.gmail.com"
@@ -37,9 +38,10 @@ soc_rse = SocRSEJobFinder(driver)
 exsci = ExscientiaJobFinder(driver)
 novartis = NovartisJobFinder(driver)
 ebi = EbiJobFinder(driver)
+exeter = ExeterJobFinder(driver)
 
-job_finders = [ox_uni, ros_frank, msd, lights, merck, novo_nord, soc_rse,
-               exsci, novartis, ebi]
+job_finders = [ox_uni, exeter, ebi, ros_frank, msd, lights, merck, novo_nord, soc_rse,
+               exsci, novartis]
 message = f"""\
 Subject: Bumper job search results for {date.today()}.
 
@@ -49,11 +51,12 @@ with open(OUT_FILE, 'w', encoding='utf-8') as f:
     for job_finder in job_finders:
         try:
             text = job_finder.find_jobs() + "\n"
-        except:
+        except Exception as e:
+            print(e)
             continue
         f.write(text)
         message += text
-print(f"Jobs writtten out to {OUT_FILE}")
+print(f"Jobs written out to {OUT_FILE}")
 # Close the selenium browser
 driver.quit()
 
